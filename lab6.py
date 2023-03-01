@@ -48,8 +48,28 @@ class RBNode:
         return "(" + str(self.value) + "," + self.colour + ")"
 
     def rotate_right(self):
-        pass
-        #TODO
+        # Setting temp variables for pointers
+        temp_colour = self.parent.colour
+        s_r = self.right
+        s_p_p = self.parent.parent
+        right_child = self.parent.is_right_child()
+
+        # Re-arranging pointers for rotating right
+        self.right = self.parent
+        self.parent.parent = self
+        self.parent = s_p_p
+        if self.parent.parent is not None:
+            if right_child:
+                s_p_p.right = self
+            else:
+                s_p_p.left = self
+        self.right.left = s_r
+        if self.right is not None:
+            self.right.left.parent = self.right
+
+        # Fixing colours of rotated nodes
+        self.colour = temp_colour
+        self.right.make_red()
 
     def rotate_left(self):
         left = self.parent
