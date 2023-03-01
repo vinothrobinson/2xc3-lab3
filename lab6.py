@@ -144,23 +144,25 @@ class RBTree:
         if node.parent is None:
             node.make_black()
             return
-        while node is not None and node.parent is not None and (node.parent.is_red() or (node.is_right_child() and node.is_red())):
+        while node is not None and node.parent is not None: #and (node.parent.is_red() or (node.is_right_child() and node.is_red())):
             print(self)
             print(node)
             if node.is_right_child():
+                print("we running this1")
                 node.rotate_left()
                 # if node.parent == None:
                 #     node.parent = self.root
-            elif node.is_left_child() and node.is_red() and node.parent.is_red():
-                node.parent.rotate_right()
-                self.root = node.parent
-                if node.parent.left.is_red() and node.parent.right.is_red():
-                    node.parent.left.make_black()
-                    node.parent.right.make_black()
-                    if node.parent.is_black():
-                        node.parent.make_red()
+            elif node.is_left_child() and node.left is not None and node.is_red() and node.left.is_red():
+                print("we running this")
+                node.rotate_right()
+                self.root = node
+                if node.left.is_red() and node.right.is_red():
+                    node.left.make_black()
+                    node.right.make_black()
+                    if node.is_black():
+                        node.make_red()
                     else:
-                        node.parent.make_black()
+                        node.make_black()
                 # if node.parent == None:
                 #     node.parent = self.root
             else:
