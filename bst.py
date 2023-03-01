@@ -37,3 +37,39 @@ class BSTree:
         if node is None:
             return 0
         return 1 + max(self.__get_height(node.left), self.__get_height(node.right))
+    
+    def insert(self, value):
+        if self.is_empty():
+            self.root = Node(value)
+        else:
+            self.insert2(self.root, value)
+
+    def insert2(self, node, value):
+        # if value == node.value:
+        #   return
+        if value < node.value:
+            if node.left is None:
+                node.left = Node(value)
+                node.left.parent = node
+            else:
+                self.insert2(node.left, value)
+        else:
+            if node.right is None:
+                node.right = Node(value)
+                node.right.parent = node
+            else:
+                self.insert2(node.right, value)
+    
+    def __str__(self):
+        if self.is_empty():
+            return "[]"
+        return "[" + self.__str_helper(self.root) + "]"
+
+    def __str_helper(self, node):
+        if node.is_leaf():
+            return "[" + str(node) + "]"
+        if node.left is None:
+            return "[" + str(node) + " -> " + self.__str_helper(node.right) + "]"
+        if node.right is None:
+            return "[" + self.__str_helper(node.left) + " <- " + str(node) + "]"
+        return "[" + self.__str_helper(node.left) + " <- " + str(node) + " -> " + self.__str_helper(node.right) + "]"
