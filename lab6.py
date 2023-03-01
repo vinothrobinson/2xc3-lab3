@@ -48,7 +48,6 @@ class RBNode:
         return "(" + str(self.value) + "," + self.colour + ")"
 
     def rotate_right(self):
-        print("string to be rotated" + str(self))
         # Setting temp variables for pointers
         temp_colour = self.parent.colour
         s_r = self.right
@@ -148,7 +147,6 @@ class RBTree:
             print(self)
             print(node)
             if node.is_right_child():
-                print("we running this1")
                 node.rotate_left()
                 # if node.parent == None:
                 #     node.parent = self.root
