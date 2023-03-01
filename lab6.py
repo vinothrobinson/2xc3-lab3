@@ -142,17 +142,21 @@ class RBTree:
         if node.parent is None:
             node.make_black()
             return
-        while node is not None and node.parent is not None and node.parent.is_red():
+        while node is not None and node.parent is not None and (node.parent.is_red() or (node.is_right_child() and node.is_red())):
+            print(self)
+            print(node)
             if node.is_right_child():
                 node.rotate_left()
-                if node.parent.parent == None:
-                    node.parent = self.root
-            elif node.is_left_child() and node.left.is_red():
-                node.rotate_right()
-                if node.parent.parent == None:
-                    node.parent = self.root
+                # if node.parent == None:
+                #     node.parent = self.root
+            elif node.is_left_child() and node.parent.parent.is_red() and node.parent.is_red():
+                node.parent.rotate_right()
+                # if node.parent == None:
+                #     node.parent = self.root
             else:
                 node = node.parent
+        if node.parent == None:
+            self.root = node
         self.root.make_black()
 
     def __str__(self):
@@ -172,19 +176,14 @@ class RBTree:
 
 T = RBTree()
 T.insert(10)
-T.insert(20)
-print(T)
-T.root.right.rotate_left()
-T.root = T.root.parent
+T.insert(5)
+T.insert(2)
 print(T)
 
-print()
-
-T = RBTree()
-T.insert(100)
-T.insert(200)
-T.insert(10)
-T.insert(20)
-print(T)
-T.root.left.right.rotate_left()
-print(T)
+# T = RBTree()
+# T.insert(100)
+# T.insert(200)
+# T.insert(10)
+# T.insert(20)
+# print(T)
+# print(T)
