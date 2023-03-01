@@ -52,7 +52,8 @@ class RBNode:
         temp_colour = self.parent.colour
         s_r = self.right
         s_p_p = self.parent.parent
-        right_child = self.parent.is_right_child()
+        if self.parent.parent is not None:
+            right_child = self.parent.is_right_child()
 
         # Re-arranging pointers for rotating right
         self.right = self.parent
