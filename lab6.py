@@ -52,8 +52,29 @@ class RBNode:
         #TODO
 
     def rotate_left(self):
-        pass
-        #TODO
+        left = self.parent
+        middle = self.left
+        top = left.parent
+
+        # Fix pointers to and from top
+        self.parent = top
+        if top is not None:
+            if left.is_right_child():
+                top.right = self
+            else:
+                top.left = self
+
+        left.parent = self
+        left.right = middle
+
+        # Fix pointers to and from left and middle
+        if middle is not None:
+            middle.parent = left
+        self.left = left
+
+        # Fix colours
+        self.colour = left.colour
+        left.make_red()
 
 
 class RBTree:
@@ -119,3 +140,23 @@ class RBTree:
         if node.right is None:
             return "[" + self.__str_helper(node.left) + " <- " + str(node) + "]"
         return "[" + self.__str_helper(node.left) + " <- " + str(node) + " -> " + self.__str_helper(node.right) + "]"
+
+
+T = RBTree()
+T.insert(10)
+T.insert(20)
+print(T)
+T.root.right.rotate_left()
+T.root = T.root.parent
+print(T)
+
+print()
+
+T = RBTree()
+T.insert(100)
+T.insert(200)
+T.insert(10)
+T.insert(20)
+print(T)
+T.root.left.right.rotate_left()
+print(T)
