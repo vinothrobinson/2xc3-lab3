@@ -48,25 +48,26 @@ class RBNode:
         return "(" + str(self.value) + "," + self.colour + ")"
 
     def rotate_right(self):
+        print("string to be rotated" + str(self))
         # Setting temp variables for pointers
         temp_colour = self.parent.colour
         s_r = self.right
         s_p_p = self.parent.parent
-        if self.parent.parent is not None:
+        if s_p_p is not None:
             right_child = self.parent.is_right_child()
 
         # Re-arranging pointers for rotating right
         self.right = self.parent
         self.parent.parent = self
         self.parent = s_p_p
-        if self.parent.parent is not None:
+        if s_p_p is not None:
             if right_child:
                 s_p_p.right = self
             else:
                 s_p_p.left = self
         self.right.left = s_r
-        if self.right is not None:
-            self.right.left.parent = self.right
+        if s_r is not None:
+            s_r.parent = self.right
 
         # Fixing colours of rotated nodes
         self.colour = temp_colour
@@ -150,8 +151,16 @@ class RBTree:
                 node.rotate_left()
                 # if node.parent == None:
                 #     node.parent = self.root
-            elif node.is_left_child() and node.parent.parent.is_red() and node.parent.is_red():
+            elif node.is_left_child() and node.is_red() and node.parent.is_red():
                 node.parent.rotate_right()
+                self.root = node.parent
+                if node.parent.left.is_red() and node.parent.right.is_red():
+                    node.parent.left.make_black()
+                    node.parent.right.make_black()
+                    if node.parent.is_black():
+                        node.parent.make_red()
+                    else:
+                        node.parent.make_black()
                 # if node.parent == None:
                 #     node.parent = self.root
             else:
