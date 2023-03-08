@@ -23,9 +23,18 @@ def swap(L, i, j):
 def graph(times):
     plot.plot(times)
     plot.legend()
-    plot.title("BST vs RBT Heights")
+    plot.title("Number of Swaps vs Difference in Average Height (BST / RBT)")
     plot.xlabel("Number of Swaps")
-    plot.ylabel("Height")
+    plot.ylabel("Difference in Average Height")
+    plot.show()
+
+def multi_graph(times):
+    plot.plot(times[0], label = "BST")
+    plot.plot(times[1], label = "RBT")
+    plot.legend()
+    plot.title("Number of Swaps vs Average Height (BST / RBT)")
+    plot.xlabel("Number of Swaps")
+    plot.ylabel("Average Height")
     plot.show()
 
 #----------------------- Experiment 1 -------------------
@@ -52,7 +61,10 @@ def experiment1(list_size, max_value):
     return
 
 def experiment2(list_size, max_value):
-    total_heights = []
+    total_heights_1 = []
+    total_heights_2 = []
+    bst_heights = []
+    rbt_heights = []
     trial_num = 10
     total_swaps = int((list_size*math.log(list_size, 2)/2))
     for num_of_swaps in tqdm(range(total_swaps)):
@@ -69,8 +81,12 @@ def experiment2(list_size, max_value):
             rbt_avg_height += rbt.get_height()
         bst_avg_height /= trial_num
         rbt_avg_height /= trial_num
-        total_heights.append(bst_avg_height - rbt_avg_height)
-    return total_heights
+        bst_heights.append(bst_avg_height)
+        rbt_heights.append(rbt_avg_height)
+        total_heights_1.append(bst_avg_height - rbt_avg_height)
+    total_heights_2.append(bst_heights)
+    total_heights_2.append(rbt_heights)
+    return [total_heights_1, total_heights_2]
 
 """
 def experiment_test():
@@ -91,4 +107,6 @@ experiment_test()
 
 # experiment1(10000,10000)
 
-graph(experiment2(100, 100))
+list = experiment2(100, 100)
+multi_graph(list[1])
+graph(list[0])
