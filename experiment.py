@@ -3,6 +3,7 @@ import bst as b
 import random
 import math
 from tqdm import tqdm
+import matplotlib.pyplot as plot
 # -------------- Experiment Helper Functions ------------
 def create_random_list(length, max_value):
     return [random.randint(0, max_value) for _ in range(length)]
@@ -30,10 +31,10 @@ def multi_graph(times):
 
 #----------------------- Experiment 1 -------------------
 def experiment1(list_size, max_value):
-    TRIAL_NUM = 1
+    TRIAL_NUM = 100
     height_list1 = []
     height_list2 = []
-    for _ in range(TRIAL_NUM):
+    for _ in tqdm(range(TRIAL_NUM)):
         L = create_random_list(list_size, max_value)
         rb = r.RBTree()
         bst = b.BSTree()
@@ -62,8 +63,8 @@ def experiment2(list_size, max_value):
         rbt_avg_height = 0
         for _ in range(trial_num):
             list = create_near_sorted_list(list_size, max_value, num_of_swaps)
-            bst = r.BSTree()
-            rbt = b.RBTree()
+            bst = b.BSTree()
+            rbt = r.RBTree()
             for node in list:
                 bst.insert(node)
                 rbt.insert(node)
@@ -94,6 +95,6 @@ def experiment_test():
 experiment_test()
 """
 
-experiment1(10000,10000)
+# experiment1(10000,10000)
 
 multi_graph(experiment2(100, 100))
