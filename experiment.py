@@ -20,9 +20,8 @@ def create_near_sorted_list(length, max_value, swaps):
 def swap(L, i, j):
     L[i], L[j] = L[j], L[i]
 
-def multi_graph(times):
-    plot.plot(times[0], label="BST Heights")
-    plot.plot(times[1], label="RBT Heights")
+def graph(times):
+    plot.plot(times)
     plot.legend()
     plot.title("BST vs RBT Heights")
     plot.xlabel("Number of Swaps")
@@ -54,10 +53,8 @@ def experiment1(list_size, max_value):
 
 def experiment2(list_size, max_value):
     total_heights = []
-    bst_heights = []
-    rbt_heights = []
     trial_num = 10
-    total_swaps = int((list_size*math.log(list_size)/2)//1)
+    total_swaps = int((list_size*math.log(list_size, 2)/2))
     for num_of_swaps in tqdm(range(total_swaps)):
         bst_avg_height = 0
         rbt_avg_height = 0
@@ -72,10 +69,7 @@ def experiment2(list_size, max_value):
             rbt_avg_height += rbt.get_height()
         bst_avg_height /= trial_num
         rbt_avg_height /= trial_num
-        bst_heights.append(bst_avg_height)
-        rbt_heights.append(rbt_avg_height)
-    total_heights.append(bst_heights)
-    total_heights.append(rbt_heights)
+        total_heights.append(bst_avg_height - rbt_avg_height)
     return total_heights
 
 """
@@ -97,4 +91,4 @@ experiment_test()
 
 # experiment1(10000,10000)
 
-multi_graph(experiment2(100, 100))
+graph(experiment2(100, 100))
