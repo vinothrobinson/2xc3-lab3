@@ -50,15 +50,29 @@ class XC3Tree:
     def __init__(self):
         self.root = None
 
+    def get_degree(self):
+        if self.root is None:
+            return 0
+        return self.root.degree
+
     def get_height(self):
         if self.root is None:
             return 0
-        1 + max([self.__get_height(child) for child in self.children])
+        if self.root.degree == 0:
+            return 1
+        return 1 + max([self.__get_height(child) for child in self.root.children])
 
     def __get_height(self, node):
         if node is None:
             return 0
+        if node.degree == 0:
+            return 1
         return 1 + max([self.__get_height(child) for child in node.children])
+
+    def is_full(self):
+        if self.root is None:
+            return True
+        return self.root.is_full()
 
     def insert(self):
         if self.root is None:
@@ -81,39 +95,3 @@ class XC3Tree:
 
     def __repr__(self):
         return str(self)
-
-
-X = XC3Tree()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-X.insert()
-print(X)

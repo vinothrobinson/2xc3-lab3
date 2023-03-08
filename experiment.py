@@ -4,6 +4,8 @@ import random
 import math
 from tqdm import tqdm
 import matplotlib.pyplot as plot
+import xc3tree
+
 # -------------- Experiment Helper Functions ------------
 def create_random_list(length, max_value):
     return [random.randint(0, max_value) for _ in range(length)]
@@ -88,6 +90,25 @@ def experiment2(list_size, max_value):
     total_heights_2.append(rbt_heights)
     return [total_heights_1, total_heights_2]
 
+
+def experiment3(max_degree):
+    X = xc3tree.XC3Tree()
+    X.insert()
+    output = []
+    while X.get_degree() <= max_degree:
+        while not X.is_full():
+            X.insert()
+        output.append(X.get_height())
+        print(f"{X.get_degree()} : {X.get_height()}")
+        X.insert()
+    print(X)
+    return output
+
+
+output = experiment3(15)
+print(output)
+
+
 """
 def experiment_test():
     values = [1, 50, 26, 54, 99, 80, 56, 19, 51, 35, 14, 15, 73, 23, 76, 43]
@@ -107,6 +128,6 @@ experiment_test()
 
 # experiment1(10000,10000)
 
-list = experiment2(100, 100)
-multi_graph(list[1])
-graph(list[0])
+# list = experiment2(100, 100)
+# multi_graph(list[1])
+# graph(list[0])
