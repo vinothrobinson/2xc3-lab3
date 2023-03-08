@@ -44,4 +44,4 @@ def experiment_test():
 experiment_test()
 """
 
-# experiment1(10000,10000)
+experiment1(10000,10000)
