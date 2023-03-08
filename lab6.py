@@ -153,7 +153,7 @@ class RBTree:
                 node.rotate_left()
                 if node.parent is None:
                     self.root = node
-            elif node.parent is not None and node.is_left_child() and node.left is not None and node.is_red() and node.left.is_red():
+            elif node.parent is not None and node.is_left_child() and node.is_red() and node.left is not None and node.left.is_red():
                 print("Right rotation")
                 node.rotate_right()
                 if node.parent is None:
