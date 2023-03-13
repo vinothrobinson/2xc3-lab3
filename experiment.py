@@ -108,7 +108,7 @@ def experiment3(max_degree):
     return output
 
 
-output = experiment3(100)
+output = experiment3(15)
 for i, row in enumerate(output):
     print(f"Degree : {i} | Size : {row[0]} | Height : {row[1]}")
 
