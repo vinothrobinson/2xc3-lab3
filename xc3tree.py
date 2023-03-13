@@ -1,6 +1,10 @@
 class XC3Node:
     def __init__(self, degree):
         self.degree = degree
+        if self.degree == 0:
+            self.full = True
+        else:
+            self.full = False
         self.children = [None for _ in range(degree)]
         self.parent = None
 
@@ -8,14 +12,21 @@ class XC3Node:
         return [child is None for child in self.children]
 
     def is_full(self):
+        return self.full
+
+    def update_full(self):
         for child in self.children:
             if child is None:
-                return False
+                return # Do not update value of full
             if not child.is_full():
-                return False
-        return True
+                return False # Do not update value of full
+        self.full = True
+        if self.parent is not None:
+            self.parent.update_full()
+        return
 
     def insert(self):
+        # Precondition: self.is_full returns False
         for i in range(len(self.children)):
             child = self.children[i]
             if child is None:
@@ -25,14 +36,15 @@ class XC3Node:
                     degree = 0
                 self.children[i] = XC3Node(degree)
                 self.children[i].parent = self
+                self.update_full()
                 return
             if not child.is_full():
                 child.insert()
-                return
 
     def increment_degree(self):
         self.degree += 1
         self.children.append(None)
+        self.update_full()
 
     def get_level(self):
         if self.parent is None:
