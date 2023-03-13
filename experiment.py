@@ -95,18 +95,22 @@ def experiment3(max_degree):
     X = xc3tree.XC3Tree()
     X.insert()
     output = []
-    while X.get_degree() <= max_degree:
+    while True:
         while not X.is_full():
             X.insert()
-        output.append(X.get_height())
+        output.append((X.get_size(), X.get_height()))
         print(f"{X.get_degree()} : {X.get_height()}")
-        X.insert()
+        if X.get_degree() < max_degree:
+            X.insert()
+        else:
+            break
     print(X)
     return output
 
 
 output = experiment3(15)
-print(output)
+for i, row in enumerate(output):
+    print(f"Degree : {i} | Size : {row[0]} | Height : {row[1]}")
 
 
 """

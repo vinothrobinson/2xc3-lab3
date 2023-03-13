@@ -69,6 +69,24 @@ class XC3Tree:
             return 1
         return 1 + max([self.__get_height(child) for child in node.children])
 
+    def get_size(self):
+        if self.root is None:
+            return 0
+        size = 1
+        for child in self.root.children:
+            if child is not None:
+                size += self.__get_size(child)
+        return size
+
+    def __get_size(self, node):
+        if node is None:
+            return 0
+        size = 1
+        for child in node.children:
+            if child is not None:
+                size += self.__get_size(child)
+        return size
+
     def is_full(self):
         if self.root is None:
             return True
