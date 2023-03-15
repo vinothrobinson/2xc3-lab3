@@ -106,6 +106,7 @@ def experiment3(max_degree):
             X.insert()
         else:
             break
+    print(X)
     return heights
 
 
@@ -113,18 +114,19 @@ def experiment4(max_degree):
     # Create tree with 1 node (since a 0-degree tree already has 1 node)
     X = xc3tree.XC3Tree()
     X.insert()
-    heights = []
+    num_of_nodes = []
 
     while True:
         while not X.is_full():
             X.insert() # Insert until X is full
-        heights.append(X.get_size())
+        num_of_nodes.append(X.get_size())
 
         if X.get_degree() < max_degree:
             X.insert()
         else:
             break
-    return heights
+    print(X)
+    return num_of_nodes
 
 
 output = experiment3(25)
@@ -132,9 +134,9 @@ for i, height in enumerate(output):
     print(f"Degree : {i} | Height : {height}")
 
 
-output = experiment4(25)
-for i, size in enumerate(output):
-    print(f"Degree : {i} | Size : {size}")
+#output = experiment4(5)
+#for i, size in enumerate(output):
+#    print(f"Degree : {i} | Size : {size}")
 
 
 """
