@@ -143,23 +143,16 @@ class RBTree:
         if node.parent is None:
             node.make_black()
             return
-        while node is not None: #and (node.parent.is_red() or (node.is_right_child() and node.is_red())):
-            #print(f"Current node: {node}")
-            #print(f"Current root: {self.root}")
-            #print(f"Current tree: {self}")
-
+        while node is not None:
             if node.is_red() and node.parent is not None and node.is_right_child() and (node.parent.left is None or not node.parent.left.is_red()):
-                #print("Left rotation")
                 node.rotate_left()
                 if node.parent is None:
                     self.root = node
             elif node.parent is not None and node.is_left_child() and node.is_red() and node.left is not None and node.left.is_red():
-                #print("Right rotation")
                 node.rotate_right()
                 if node.parent is None:
                     self.root = node
             elif node.left is not None and node.right is not None and node.left.is_red() and node.right.is_red():
-                #print("Colour change")
                 node.left.make_black()
                 node.right.make_black()
                 if node.is_black():
@@ -168,8 +161,6 @@ class RBTree:
                     node.make_black()
             else:
                 node = node.parent
-        # if node.parent == None:
-        #     self.root = node
         self.root.make_black()
 
     def __str__(self):
@@ -223,16 +214,3 @@ class RBTree:
                 print("Not valid (right-leaning red link)")
                 return False
         return True
-
-"""
-values = [1, 50, 26, 54, 99, 80, 56, 19, 51, 35, 14, 15, 73, 23, 76, 43]
-T = RBTree()
-valList = []
-for value in values:
-    T.insert(value)
-    print(T.root)
-    print(T)
-    valList.append(value)
-    if not T.is_valid(valList):
-        break
-"""

@@ -45,8 +45,6 @@ class BSTree:
             self.insert2(self.root, value)
 
     def insert2(self, node, value):
-        # if value == node.value:
-        #   return
         if value < node.value:
             if node.left is None:
                 node.left = Node(value)
@@ -73,11 +71,3 @@ class BSTree:
         if node.right is None:
             return "[" + self.__str_helper(node.left) + " <- " + str(node) + "]"
         return "[" + self.__str_helper(node.left) + " <- " + str(node) + " -> " + self.__str_helper(node.right) + "]"
-
-"""
-values = [5, 9, 6, 1, 4, 3]
-T = BSTree()
-for value in values:
-    T.insert(value)
-    print(T)
-"""
