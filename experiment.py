@@ -106,7 +106,7 @@ def experiment3(max_degree):
             X.insert()
         else:
             break
-    print(X)
+
     return heights
 
 
@@ -125,13 +125,14 @@ def experiment4(max_degree):
             X.insert()
         else:
             break
-    print(X)
+
     return num_of_nodes
 
 
-output = experiment3(25)
-for i, height in enumerate(output):
-    print(f"Degree : {i} | Height : {height}")
+#output = experiment3(25)
+#print(output)
+#for i, height in enumerate(output):
+#    print(f"Degree : {i} | Height : {height}")
 
 
 #output = experiment4(5)
